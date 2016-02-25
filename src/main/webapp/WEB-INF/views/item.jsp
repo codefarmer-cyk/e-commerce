@@ -21,6 +21,36 @@
 	position: fixed;
 	z-index: 9999;
 }
+
+body {
+	background-color: #f8f8ff;
+}
+
+.content {
+	background-color: white;
+	margin: 3%;
+	padding: 3%;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px #888888;
+}
+
+.itemImg {
+	box-shadow: 3px 3px 10px #888888;
+	border-radius: 3px;
+}
+
+.item_box {
+	padding: 5%;
+	margin-top: 5%;
+	border-radius: 10px;
+	border: solid 1px #ededed;
+	background-color: #f5f5f5;
+	text-align: center;
+}
+
+.price {
+	color: #e4393c;
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -30,13 +60,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3">
-					<div>
+					<div class="item_box">
 						<img alt="" src="resources/img/${item.img}" class="itemImg">
 					</div>
 				</div>
 				<div class="col-md-8">
-					<p>${item.name}</p>
-					<p>${item.price}</p>
+					<h1>${item.name}</h1>
+					<h2 class="price">￥${item.price}</h2>
+					<p></p>
 					<button type="button" class="btn btn-primary addcar"
 						onclick="addCart('${item.id}',1)">加入购物车</button>
 				</div>

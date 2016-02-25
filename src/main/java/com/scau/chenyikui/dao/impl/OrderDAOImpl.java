@@ -8,7 +8,7 @@ import com.scau.chenyikui.dao.OrderDAO;
 import com.scau.chenyikui.model.Order;
 
 @Repository
-public class OrderDAOImpl extends BaseDAOImpl<Integer, Order> implements OrderDAO {
+public class OrderDAOImpl extends BaseDAOImpl<Order> implements OrderDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override

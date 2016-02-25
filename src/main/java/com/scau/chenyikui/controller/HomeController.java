@@ -8,25 +8,26 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.scau.chenyikui.aop.ControllerAdvice;
 import com.scau.chenyikui.model.Category;
 import com.scau.chenyikui.model.Item;
 import com.scau.chenyikui.model.User;
 import com.scau.chenyikui.service.CategoryService;
 import com.scau.chenyikui.service.ItemService;
 import com.scau.chenyikui.service.UserService;
-
 /**
  * Handles requests for the application home page.
  */
@@ -60,9 +61,8 @@ public class HomeController {
 		model.addAttribute("categories", categories);
 
 		String formattedDate = dateFormat.format(date);
-//		User user = userService.get(getPrincipal());
-		// model.addAttribute("user", getPrincipal());
-//		model.addAttribute("user", user);
+		User user = userService.get(ControllerAdvice.getPrincipal());
+		model.addAttribute("user", user);
 		model.addAttribute("serverTime", formattedDate);
 
 		return "home";
@@ -89,4 +89,24 @@ public class HomeController {
 		return "accessDenied";
 	}
 
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String registerPage(Model model) {
+		model.addAttribute("user", new User());
+		return "register";
+	}
+
+	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
+	public String registerDo(Model model, User user) {
+		user.getAuthorities().add("ROLE_USER");
+		String salt = RandomStringUtils.randomAlphanumeric(5);
+		user.setSalt(salt);
+		Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+		md5.setEncodeHashAsBase64(true);
+		String md5Password = md5.encodePassword(user.getPassword(), "");
+		user.setPassword(md5Password);
+		System.out.println(user.getPassword());
+		userService.save(user);
+		model.addAttribute("msg", "注册成功");
+		return "msg";
+	}
 }

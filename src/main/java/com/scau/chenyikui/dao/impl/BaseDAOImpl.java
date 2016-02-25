@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.scau.chenyikui.dao.BaseDAO;
 
-public abstract class BaseDAOImpl<PK extends Serializable, T> implements BaseDAO<PK, T> {
+public abstract class BaseDAOImpl<T> implements BaseDAO<T> {
 
 	private Class<T> entityClass;
 
@@ -18,7 +18,7 @@ public abstract class BaseDAOImpl<PK extends Serializable, T> implements BaseDAO
 
 	@SuppressWarnings("unchecked")
 	public BaseDAOImpl() {
-		entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+		entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public abstract class BaseDAOImpl<PK extends Serializable, T> implements BaseDAO
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public T get(PK key) {
+	public T get(Serializable key) {
 		return (T) sessionFactory.getCurrentSession().get(entityClass, key);
 	}
 

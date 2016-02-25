@@ -20,7 +20,6 @@ import com.scau.chenyikui.service.ItemService;
 import com.scau.chenyikui.service.OrderService;
 import com.scau.chenyikui.service.UserService;
 import com.scau.chenyikui.aop.ControllerAdvice;
-import com.scau.chenyikui.controller.HomeController;
 
 @Controller
 public class CartController {
@@ -46,6 +45,8 @@ public class CartController {
 			}
 		}
 		model.addAttribute("buyList", buyList);
+		User user = userService.get(ControllerAdvice.getPrincipal());
+		model.addAttribute("user", user);
 		return "cart";
 	}
 
@@ -67,7 +68,7 @@ public class CartController {
 			}
 		}
 		orderService.save(order);
-		model.addAttribute("msg", "提交订单成功！");
-		return "order_success";
+		model.addAttribute("msg", "提交订单成功");
+		return "msg";
 	}
 }

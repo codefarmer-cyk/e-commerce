@@ -3,11 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
@@ -16,12 +16,11 @@
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
-<!-- 	<context:annotation-config /> -->
+	<!-- <context:annotation-config /> -->
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<beans:bean
@@ -31,17 +30,34 @@
 	</beans:bean>
 
 	<context:component-scan base-package="com.scau.chenyikui">
-<!-- 		<context:include-filter type="annotation" -->
-<!-- 			expression="org.springframework.stereotype.Controller" /> -->
+		<!-- <context:exclude-filter type="annotation" -->
+		<!-- expression="org.springframework.stereotype.Service" /> -->
 	</context:component-scan>
+
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- <context:component-scan base-package="com.scau.chenyikui.aop" /> -->
 
-<!-- 	<aop:aspectj-autoproxy> -->
-<!-- 		<aop:include name="controllerAdvice" /> -->
-<!-- 	</aop:aspectj-autoproxy> -->
+	<!-- <aop:aspectj-autoproxy proxy-target-class="true" /> -->
 
-	<beans:bean id="controllerAdvice" class="com.scau.chenyikui.aop.ControllerAdvice" />
+	<beans:bean id="HttpMessageConverter"
+		class="org.springframework.http.converter.StringHttpMessageConverter">
+		<beans:property name="supportedMediaTypes">
+			<beans:list>
+				<beans:value>text/plain;charset=UTF-8</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
 
-
+	<beans:bean id="jsonMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></beans:bean>
+	<beans:bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<beans:property name="messageConverters">
+			<beans:list>
+				<beans:ref bean="HttpMessageConverter" />
+				<beans:ref bean="jsonMessageConverter" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
 
 </beans:beans>

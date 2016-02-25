@@ -12,10 +12,10 @@ import com.scau.chenyikui.model.Category;
 import com.scau.chenyikui.service.CategoryService;
 
 @Service
-public class CategoryServiceImpl extends BaseServiceImpl<Integer, Category> implements CategoryService {
+public class CategoryServiceImpl extends BaseServiceImpl<Category> implements CategoryService {
 
 	@Autowired
-	public CategoryServiceImpl(BaseDAOImpl<Integer, Category> baseDAO) {
+	public CategoryServiceImpl(BaseDAOImpl<Category> baseDAO) {
 		super(baseDAO);
 	}
 

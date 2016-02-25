@@ -4,6 +4,6 @@ import java.util.List;
 
 import com.scau.chenyikui.model.User;
 
-public interface UserService extends BaseService<String, User> {
+public interface UserService extends BaseService<User> {
 	List<User> getUsers();
 }

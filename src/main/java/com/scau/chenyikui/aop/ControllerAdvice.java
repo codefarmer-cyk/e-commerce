@@ -14,20 +14,30 @@ import com.scau.chenyikui.service.UserService;
 @Aspect
 public class ControllerAdvice {
 
-//	@Autowired
-//	private UserService userService;
+//	 @Autowired
+	 private UserService userService;
 
+//	@Pointcut("execution(* *(..))")
+//	public void test() {
+//	}
+	 
+//	 @Before("test()")
+//	 public void fuck(){
+//		 System.out.println("fuck123213ksldfs;gjis;aildjfa;ijfio;");
+//	 }
+	 
 	@Pointcut("execution(* com.scau.chenyikui.controller.*.*(..))")
 	private void controller() {
 	}
 
-	@Before("controller() && args(model)")
+	// @Before("controller() && args(model)")
+	@Before("controller()")
 	public void addUserDetail(Model model) {
 		System.out.println("fuck-------------------------------------------------------");
-//		User user = userService.get(getPrincipal());
-//		model.addAttribute("user", user);
+		 User user = userService.get(getPrincipal());
+		 model.addAttribute("user", user);
 	}
-	
+
 	public static String getPrincipal() {
 		String userName = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

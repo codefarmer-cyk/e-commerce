@@ -12,10 +12,10 @@ import com.scau.chenyikui.model.Order;
 import com.scau.chenyikui.service.OrderService;
 
 @Service
-public class OrderServiceImpl extends BaseServiceImpl<Integer, Order> implements OrderService {
+public class OrderServiceImpl extends BaseServiceImpl<Order> implements OrderService {
 
 	@Autowired
-	public OrderServiceImpl(BaseDAOImpl<Integer, Order> baseDAO) {
+	public OrderServiceImpl(BaseDAOImpl<Order> baseDAO) {
 		super(baseDAO);
 	}
 

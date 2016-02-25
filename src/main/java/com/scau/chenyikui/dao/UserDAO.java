@@ -4,6 +4,6 @@ import java.util.List;
 
 import com.scau.chenyikui.model.User;
 
-public interface UserDAO extends BaseDAO<String, User> {
+public interface UserDAO extends BaseDAO<User> {
   List<User> getUsers();
 }

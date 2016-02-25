@@ -8,7 +8,7 @@ import com.scau.chenyikui.dao.CategoryDAO;
 import com.scau.chenyikui.model.Category;
 
 @Repository
-public class CategoryDAOImpl extends BaseDAOImpl<Integer, Category> implements CategoryDAO {
+public class CategoryDAOImpl extends BaseDAOImpl<Category> implements CategoryDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override

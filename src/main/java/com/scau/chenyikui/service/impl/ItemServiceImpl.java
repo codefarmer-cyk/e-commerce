@@ -13,12 +13,11 @@ import com.scau.chenyikui.model.Item;
 import com.scau.chenyikui.service.ItemService;
 
 @Service
-public class ItemServiceImpl extends BaseServiceImpl<Integer, Item> implements ItemService {
+public class ItemServiceImpl extends BaseServiceImpl<Item> implements ItemService {
 
 	@Autowired
-	public ItemServiceImpl(BaseDAOImpl<Integer, Item> baseDAO) {
+	public ItemServiceImpl(BaseDAOImpl<Item> baseDAO) {
 		super(baseDAO);
-		System.out.println(baseDAO.getClass().getName());
 	}
 
 	@Autowired

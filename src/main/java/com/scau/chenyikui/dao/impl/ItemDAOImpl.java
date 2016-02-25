@@ -8,7 +8,7 @@ import com.scau.chenyikui.dao.ItemDAO;
 import com.scau.chenyikui.model.Item;
 
 @Repository
-public class ItemDAOImpl extends BaseDAOImpl<Integer, Item> implements ItemDAO {
+public class ItemDAOImpl extends BaseDAOImpl<Item> implements ItemDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override

@@ -29,6 +29,7 @@ public class User {
 	private String password;
 	private String email;
 	private boolean enabled;
+	private String salt;
 
 	@ElementCollection
 	@CollectionTable(name = "carts", joinColumns = @JoinColumn(name = "user_id") )
@@ -98,6 +99,22 @@ public class User {
 
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public Map<Item, Integer> getItems_amount() {
+		return items_amount;
+	}
+
+	public void setItems_amount(Map<Item, Integer> items_amount) {
+		this.items_amount = items_amount;
 	}
 
 }

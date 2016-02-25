@@ -2,17 +2,16 @@ package com.scau.chenyikui.service.impl;
 
 import java.io.Serializable;
 
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.scau.chenyikui.dao.impl.BaseDAOImpl;
 import com.scau.chenyikui.service.BaseService;
 
-public abstract class BaseServiceImpl<PK extends Serializable, T> implements BaseService<PK, T> {
+public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
-	protected BaseDAOImpl<PK, T> baseDAO;
+	private BaseDAOImpl<T> baseDAO;
 
-	public BaseServiceImpl(BaseDAOImpl<PK, T> baseDAO) {
+	public BaseServiceImpl(BaseDAOImpl<T> baseDAO) {
 		this.baseDAO = baseDAO;
 	}
 
@@ -30,7 +29,7 @@ public abstract class BaseServiceImpl<PK extends Serializable, T> implements Bas
 
 	@Transactional
 	@Override
-	public T get(PK key) {
+	public T get(Serializable key) {
 		return (T) baseDAO.get(key);
 	}
 

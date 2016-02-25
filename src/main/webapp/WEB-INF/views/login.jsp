@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
 <%@ page isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -26,9 +28,13 @@
     <![endif]-->
 <style type="text/css">
 body {
-	padding-top: 40px;
-	padding-bottom: 40px;
-	background-color: #eee;
+	background-color: #f5f5f5;
+}
+
+.login-form {
+	background: white;
+	padding: 5%;
+	border-radius: 15px;
 }
 
 .form-signin {
@@ -59,7 +65,7 @@ body {
 	z-index: 2;
 }
 
-.form-signin input[type="email"] {
+.form-signin input[type="username"] {
 	margin-bottom: -1px;
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
@@ -72,34 +78,41 @@ body {
 }
 </style>
 </head>
-
 <body>
-
-	<div class="container">
-
-		<form class="form-signin" action="login.do" method="post">
-			<h2 class="form-signin-heading">Please sign in</h2>
-			<label for="inputEmail" class="sr-only">Username</label> <input
-				name="username" type="text" class="form-control" id="inputUsername"
-				placeholder="user name" required autofocus> <label
-				for="inputPassword" class="sr-only">Password</label> <input
-				name="password" type="password" id="inputPassword"
-				class="form-control" placeholder="Password" required>
-			<div class="checkbox">
-				<label> <input type="checkbox" value="remember-me">
-					Remember me
-				</label>
+	<%@include file="include/nav.jsp"%>
+	<div class="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-offset-3 col-md-6 login-form">
+					<form class="form-signin form-group" action="login.do"
+						method="post">
+						<h2 class="form-signin-heading">请登录</h2>
+						<label for="inputUsername" class="sr-only">用户名</label> <input
+							name="username" type="text" class="form-control"
+							id="inputUsername" placeholder="user name" required autofocus>
+						<label for="inputPassword" class="sr-only">密码</label> <input
+							name="password" type="password" id="inputPassword"
+							class="form-control" placeholder="Password" required>
+						<div class="checkbox">
+							<label> <input type="checkbox"
+								name="_spring_security_remember_me" value="true">
+								记住我的登录状态
+							</label>
+						</div>
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+						<button class="btn btn-lg btn-primary btn-block" type="submit">登录
+						</button>
+					</form>
+				</div>
 			</div>
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-				in</button>
-		</form>
 
+		</div>
 	</div>
 	<!-- /container -->
-
-
+	<%@include file="include/footer.jsp"%>
+	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
+	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 </body>
 </html>

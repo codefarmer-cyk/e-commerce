@@ -8,7 +8,7 @@ import com.scau.chenyikui.dao.UserDAO;
 import com.scau.chenyikui.model.User;
 
 @Repository
-public class UserDAOImpl extends BaseDAOImpl<String, User> implements UserDAO {
+public class UserDAOImpl extends BaseDAOImpl<User> implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
