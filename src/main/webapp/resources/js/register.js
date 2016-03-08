@@ -3,7 +3,7 @@
  */
 
 // Firefox, Google Chrome, Opera, Safari, Internet Explorer from version 9
-var input1 = false, input2 = false, input3 = false, input4 = false;
+var input1 = false, input2 = false, input3 = false, input4 = false, input5 = false;
 function onUsernameInput(event) {
 	var username = event.target.value;
 	var usernameReg = /^[a-zA-Z][a-zA-Z0-9_]{3,14}$/;
@@ -32,15 +32,30 @@ function onEmailInput(event) {
 	isOK();
 }
 
+function onPhoneInput(event) {
+	var phone = event.target.value;
+	var phoneReg = /\d{11}/;
+	if (phoneReg.test(phone)) {
+		// alert();
+		$("#phone_input_warn").attr("hidden", "hidden");
+		input3 = true;
+	} else {
+		$("#phone_input_warn").removeAttr("hidden");
+		input3 = false;
+		// alert("fuck");
+	}
+	isOK();
+}
+
 function onPasswordInput(event) {
 	var password = event.target.value;
 	var passwordReg = /[a-zA-Z0-9]{5,14}$/;
 	if (passwordReg.test(password)) {
 		$("#password_input_warn").attr("hidden", "hidden");
-		input3 = true;
+		input4 = true;
 	} else {
 		$("#password_input_warn").removeAttr("hidden");
-		input3 = false;
+		input4 = false;
 	}
 	isOK();
 }
@@ -50,10 +65,10 @@ function onPasswordConfirmInput(event) {
 	var password = document.getElementById("password").value;
 	if (password2 == password) {
 		$("#password_confirm_input_warn").attr("hidden", "hidden");
-		input4 = true;
+		input5 = true;
 	} else {
 		$("#password_confirm_input_warn").removeAttr("hidden");
-		input4 = false;
+		input5 = false;
 	}
 	isOK();
 }
@@ -88,16 +103,31 @@ function onEmailPropChanged(event) {
 	isOK();
 }
 
+function onPhonePropChanged(event) {
+	if (event.propertyName.toLowerCase() == "value") {
+		var phone = event.target.value;
+		var phoneReg = /\d{11}/;
+		if (phoneReg.test(phone)) {
+			$("#phone_input_warn").attr("hidden", "hidden");
+			input3 = true;
+		} else {
+			$("#phone_input_warn").removeAttr("hidden");
+			input3 = false;
+		}
+	}
+	isOK();
+}
+
 function onPasswordPropChanged(event) {
 	if (event.propertyName.toLowerCase() == "value") {
 		var password = event.target.value;
 		var passwordReg = /^[a-zA-Z][a-zA-Z0-9]{5,14}$/;
 		if (passwordReg.test(password)) {
 			$("#password_input_warn").attr("hidden", "hidden");
-			input3 = true;
+			input4 = true;
 		} else {
 			$("#password_input_warn").removeAttr("hidden");
-			input3 = false;
+			input4 = false;
 		}
 	}
 	isOK();
@@ -108,16 +138,16 @@ function onPasswordConfirmPropChanged(event) {
 	var password = $("#password").value;
 	if (password2 == password) {
 		$("#password_confirm_input_warn").attr("hidden", "hidden");
-		input4 = true;
+		input5 = true;
 	} else {
 		$("#password_confirm_input_warn").removeAttr("hidden");
-		input4 = false;
+		input5 = false;
 	}
 	isOK();
 }
 
 function isOK() {
-	if (input1 && input2 && input3 && input4) {
+	if (input1 && input2 && input3 && input4 && input5) {
 		$("#submuit_btn").removeAttr("disabled");
 	} else {
 		$("#submuit_btn").attr("disabled", "disabled");

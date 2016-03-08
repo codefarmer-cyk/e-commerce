@@ -9,7 +9,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
-<title>注册</title>
+<title>注册 --特色农产品电子商务网站</title>
+<link rel="icon" href="resources/img/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <style type="text/css">
@@ -20,7 +21,8 @@
 }
 
 body {
-	background-color: #f5f5f5;
+	padding-top: 70px;
+	background-color: rgb(249, 249, 249);
 }
 </style>
 </head>
@@ -30,8 +32,8 @@ body {
 		<div class="container">
 			<div class="row">
 				<div class="col-md-offset-3 col-md-6 register_form">
-					<form:form commandName="user" class="form-horizontal" method="POST"
-						action="./register.do">
+					<form:form commandName="newUser" class="form-horizontal"
+						method="POST" action="./register.do">
 						<fieldset>
 							<div id="legend">
 								<legend class="">注册</legend>
@@ -65,11 +67,25 @@ body {
 							</div>
 
 							<div class="control-group">
+								<!-- Phone-->
+								<label class="control-label" for="phone">手机号码</label>
+								<div class="controls">
+									<form:input type="text" id="phone" path="phone" name="phone"
+										placeholder="" class="form-control"
+										oninput="onPhoneInput (event)"
+										onpropertychange="onPhonePropChanged (event)" />
+									<p class="help-block">请填写你的11位手机号码</p>
+								</div>
+								<div id="phone_input_warn" class="alert alert-warning"
+									role="alert" hidden="hidden">手机号码格式不正确！</div>
+							</div>
+
+							<div class="control-group">
 								<!-- Password-->
 								<label class="control-label" for="password">密码</label>
 								<div class="controls">
-									<form:password path="password"  id="password"
-										name="password" placeholder="" class="form-control"
+									<form:password path="password" id="password" name="password"
+										placeholder="" class="form-control"
 										oninput="onPasswordInput (event)"
 										onpropertychange="onPasswordPropChanged (event)" />
 									<p class="help-block">密码至少包含6个字符</p>
@@ -93,7 +109,7 @@ body {
 									class="alert alert-warning" role="alert" hidden>密码不一致！</div>
 							</div>
 
-							<form:hidden path="enabled" value="true" />
+							<form:hidden path="enabled" value="1" />
 
 							<div class="control-group">
 								<!-- Button -->

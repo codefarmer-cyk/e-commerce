@@ -13,8 +13,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Signin Template for Bootstrap</title>
-
+<title>登录界面--特色农产品电子商务网站</title>
+<link rel="icon" href="resources/img/favicon.png">
 <!-- Bootstrap core CSS -->
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 
@@ -28,7 +28,9 @@
     <![endif]-->
 <style type="text/css">
 body {
-	background-color: #f5f5f5;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	background-color: rgb(249, 249, 249);
 }
 
 .login-form {
@@ -75,6 +77,11 @@ body {
 	margin-bottom: 10px;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
+}
+
+footer {
+	/*     position:fixed; */
+	bottom: 0;
 }
 </style>
 </head>

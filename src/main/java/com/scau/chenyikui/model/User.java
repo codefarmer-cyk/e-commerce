@@ -1,5 +1,6 @@
 package com.scau.chenyikui.model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -9,6 +10,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -16,6 +18,8 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "users")
@@ -30,6 +34,11 @@ public class User {
 	private String email;
 	private boolean enabled;
 	private String salt;
+	private Date date;
+	private String phone;
+	private String avatar;
+	@Transient
+	private MultipartFile avatarFile;
 
 	@ElementCollection
 	@CollectionTable(name = "carts", joinColumns = @JoinColumn(name = "user_id") )
@@ -40,18 +49,20 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private Set<Order> orders = new HashSet<Order>();
 
-	public int getId() {
-		return id;
-	}
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "collections", joinColumns = @JoinColumn(name = "username") )
+	@Column(name = "item")
+	public Set<Item> collections = new HashSet<Item>();
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "authorities", joinColumns = @JoinColumn(name = "username") )
 	@Column(name = "authority")
 	private Set<String> authorities = new HashSet<String>();
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	@ElementCollection
+	@CollectionTable(name = "addresses", joinColumns = @JoinColumn(name = "username") )
+	@Column(name = "address")
+	private Set<String> addresses = new HashSet<String>();
 
 	public String getPassword() {
 		return password;
@@ -115,6 +126,54 @@ public class User {
 
 	public void setItems_amount(Map<Item, Integer> items_amount) {
 		this.items_amount = items_amount;
+	}
+
+	public Set<Item> getCollections() {
+		return collections;
+	}
+
+	public void setCollections(Set<Item> collections) {
+		this.collections = collections;
+	}
+
+	public Set<String> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Set<String> addresses) {
+		this.addresses = addresses;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public MultipartFile getAvatarFile() {
+		return avatarFile;
+	}
+
+	public void setAvatarFile(MultipartFile avatarFile) {
+		this.avatarFile = avatarFile;
 	}
 
 }

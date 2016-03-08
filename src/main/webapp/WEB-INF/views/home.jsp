@@ -5,204 +5,285 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="keywords" content="原生态、原产地、天然食品、有机食品、特色农产品、生鲜电商、一地一味、企业定制">
-<meta name="description"
-	content="一地一味致力于将新农业与互联网结合，专注寻找原产地、健康优质食材，专门成立寻味团，来到食物最初生长的地方，从食材的源头把关，为追求生活品质的人们提供安全，健康的食材。让您足不出户，吃到天下健康美味。">
-<title>一地一味_本地化生鲜特色农产品共享平台</title>
-<link rel="stylesheet" href="resources/css/bootstrap.min.css">
-<!-- <link rel="icon" href="favicon.ico" type="image/x-icon" /> -->
-<!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /> -->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>首頁--特色农产品电子商务网站</title>
+<!-- Bootstrap Core CSS -->
+<link rel="icon" href="resources/img/favicon.png">
+<link href="resources/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 <style type="text/css">
-.top {
-	/* 	background-color: green; */
-	
-}
-
-.footer {
-	background-color: gray;
-}
-
-.slide {
-	margin-bottom: 50px;
-}
-
-.content {
-	background-color: white;
-	margin: 3%;
-	padding: 2%;
-	border-radius: 10px;
-	box-shadow: 5px 5px 10px #888888;
-}
-
-.itemImg {
-	box-shadow: 3px 3px 10px #888888;
-	border-radius: 3px;
-	width: 180p;
-	height: 180px;
-}
-
-.item_box {
-	padding: 5%;
-	margin-top: 5%;
-	border-radius: 10px;
-	border: solid 1px #ededed;
-	background-color: #f5f5f5;
-	text-align: center;
-}
-
+/*!
+ * Start Bootstrap - Shop Homepage HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
 body {
-	background-color: #f8f8ff;
+	padding-top: 70px;
+	background-color: rgb(249, 249, 249);
+	/* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.slide-image {
+	width: 100%;
+}
+
+.carousel-holder {
+	margin-bottom: 30px;
+}
+
+.carousel-control, .item {
+	border-radius: 4px;
+}
+
+.caption {
+	height: 130px;
+	overflow: hidden;
+}
+
+.caption h4 {
+	white-space: nowrap;
+}
+
+.thumbnail img {
+	width: 100%;
+}
+
+.ratings {
+	padding-right: 10px;
+	padding-left: 10px;
+	color: #d17581;
+}
+
+.thumbnail {
+	padding: 0;
+}
+
+.thumbnail .caption-full {
+	padding: 9px;
+	color: #333;
+}
+
+footer {
+	margin: 50px 0;
 }
 
 .price {
 	color: #e4393c;
 }
 
-.header {
-	background-color: gray;
-}
-
-a:link {
-	text-decoration: none;
-	color: gray;
-}
-
-a:active {
-	text-decoration: blink;
-}
-
-a:hover {
-	text-decoration: none;
-	color: #e4393c;
-}
-
-a:visited {
-	text-decoration: none;
-	color: gray;
+.stock {
+	color: green;
 }
 </style>
+
 </head>
+
 <body>
-	<div class="header">
-		<%@include file="include/nav.jsp"%>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-offset-4 col-md-4">
-					<form class="navbar-form navbar-left" role="search">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Search">
-						</div>
-						<button type="submit" class="btn btn-default">
-							<span class="glyphicon glyphicon-search" aria-hidden="true">
-						</button>
-					</form>
+
+	<!-- Navigation -->
+	<%@include file="include/nav.jsp"%>
+	<!-- Page Content -->
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-md-3">
+				<ol class="breadcrumb">
+					<li class="active">主页</li>
+				</ol>
+
+				<div class="list-group " role="tablist">
+					<a class="list-group-item  active categoryBtn" href="#all"
+						onclick="categoryActive(this)" aria-controls="all" role="tab"
+						data-toggle="tab">全部</a>
+					<c:forEach items="${categories}" var="category" varStatus="vs">
+						<a class="list-group-item  categoryBtn" href="#${category.id}"
+							onclick="categoryActive(this)" aria-controls="${category.id}"
+							role="tab" data-toggle="tab">${category.name}</a>
+					</c:forEach>
 				</div>
+
+				<form action="./" method="get">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="搜索"
+							name="search"> <span class="input-group-btn">
+							<button class="btn btn-default" type="submit">
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							</button>
+						</span>
+					</div>
+				</form>
+				<br>
+				<!-- /input-group -->
+				<div class="btn-group" role="group" aria-label="...">
+					<a type="button"
+						class="btn btn-default btn-xs <c:if test='${order eq null}'>active</c:if>"
+						href="./"> 综合 <span
+						class="glyphicon glyphicon-sort-by-attributes-alt"
+						aria-hidden="true"></span>
+					</a> <a type="button"
+						class="btn btn-default btn-xs <c:if test="${order eq 'score'}">active</c:if>"
+						href="./?order=score<c:if test="${order eq 'score'}">&&asc=${asc}</c:if>">
+						人气<span
+						class="glyphicon glyphicon-sort-by-attributes<c:if test="${order eq 'score' and asc eq true}">-alt</c:if>"
+						aria-hidden="true"></span>
+					</a> <a type="button"
+						class="btn btn-default btn-xs <c:if test="${order eq 'date'}">active</c:if>"
+						href="./?order=date<c:if test="${order eq 'date'}">&&asc=${asc}</c:if>">
+						新品<span
+						class="glyphicon glyphicon-sort-by-attributes<c:if test="${order eq 'date' and asc eq true}">-alt</c:if>"
+						aria-hidden="true"></span>
+					</a> <a type="button"
+						class="btn btn-default btn-xs <c:if test="${order eq 'sale'}">active</c:if>"
+						href="./?order=sale<c:if test="${order eq 'sale'}">&&asc=${asc}</c:if>">
+						销量<span
+						class="glyphicon glyphicon-sort-by-attributes<c:if test="${order eq 'sale' and asc eq true}">-alt</c:if>"
+						aria-hidden="true"></span>
+					</a> <a type="button"
+						class="btn btn-default btn-xs <c:if test="${order eq 'price'}">active</c:if>"
+						href="./?order=price<c:if test="${order eq 'price'}">&&asc=${asc}</c:if>">
+						价格<span
+						class="glyphicon glyphicon-sort-by-attributes<c:if test="${order eq 'price' and asc eq true}">-alt</c:if>"
+						aria-hidden="true"></span>
+					</a>
+				</div>
+				<br>
+				<hr>
 			</div>
-		</div>
-	</div>
-	<div class="content">
-		<div class="slide">
-			<div class="container-fluid">
-				<div class="row">
-					<!-- 			<div class="col-md-3"> -->
-					<!-- 				<div class="list-group"> -->
-					<!-- 					<a href="#" class="list-group-item active">First item<i -->
-					<!-- 						class="icon-chevron-right"></i></a> <a href="#" -->
-					<!-- 						class="list-group-item">Second item<i -->
-					<!-- 						class="icon-chevron-right"></i></a> <a href="#" -->
-					<!-- 						class="list-group-item">Third item<i -->
-					<!-- 						class="icon-chevron-right"></i></a> -->
-					<!-- 				</div> -->
-					<!-- 			</div> -->
-					<div class="col-md-offset-1 col-md-10">
+			<div class="col-md-9">
+
+				<div class="row carousel-holder">
+
+					<div class="col-md-12">
 						<div id="carousel-example-generic" class="carousel slide"
 							data-ride="carousel">
-							<!-- Indicators -->
 							<ol class="carousel-indicators">
 								<li data-target="#carousel-example-generic" data-slide-to="0"
 									class="active"></li>
 								<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-								<!-- 							<li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
+								<li data-target="#carousel-example-generic" data-slide-to="2"></li>
 							</ol>
-
-							<!-- Wrapper for slides -->
-							<div class="carousel-inner" role="listbox">
+							<div class="carousel-inner">
 								<div class="item active">
-									<img src="resources/img/home-bg.jpg" alt="...">
-									<div class="carousel-caption">...</div>
+									<img class="slide-image" src="resources/img/slide1-img.jpg"
+										alt="">
 								</div>
 								<div class="item">
-									<img src="resources/img/post-bg.jpg" alt="...">
-									<div class="carousel-caption">...</div>
+									<img class="slide-image" src="resources/img/slide2-img.jpg"
+										alt="">
+								</div>
+								<div class="item">
+									<img class="slide-image" src="resources/img/slide3-img.jpg"
+										alt="">
 								</div>
 							</div>
-							<!-- Controls -->
 							<a class="left carousel-control" href="#carousel-example-generic"
-								role="button" data-slide="prev"> <span
-								class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-								<span class="sr-only">Previous</span>
+								data-slide="prev"> <span
+								class="glyphicon glyphicon-chevron-left"></span>
 							</a> <a class="right carousel-control"
-								href="#carousel-example-generic" role="button" data-slide="next">
-								<span class="glyphicon glyphicon-chevron-right"
-								aria-hidden="true"></span> <span class="sr-only">Next</span>
+								href="#carousel-example-generic" data-slide="next"> <span
+								class="glyphicon glyphicon-chevron-right"></span>
 							</a>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="item_list">
-			<div class="container">
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs" role="tablist">
-					<c:forEach items="${categories}" var="category" varStatus="vs">
-						<li role="presentation"
-							class="<c:if test='${vs.count eq 1}'>active</c:if>"><a
-							href="#${category.id}" aria-controls="${category.id}" role="tab"
-							data-toggle="tab">${category.name}</a></li>
-					</c:forEach>
-					<!-- 					<li role="presentation" class="active"><a href="#home" -->
-					<!-- 						aria-controls="home" role="tab" data-toggle="tab">Home</a></li> -->
-					<!-- 					<li role="presentation"><a href="#profile" -->
-					<!-- 						aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li> -->
-					<!-- 					<li role="presentation"><a href="#messages" -->
-					<!-- 						aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li> -->
-					<!-- 					<li role="presentation"><a href="#settings" -->
-					<!-- 						aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
-				</ul>
 
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<c:forEach items="${categories}" var="category" varStatus="vs">
-						<div role="tabpanel" class="tab-pane active" id="${category.id}">
-							<c:if test="${fn:length(category.items) gt 0}">
-								<div class="row">
-									<c:forEach items="${category.items}" var="item">
-										<div class="col-md-3 ">
-											<div class="item_box">
-												<a href="item?item_id=${item.id}"> <img alt=""
-													src="resources/img/${item.img}" class="itemImg">
-													<h3>${item.name}</h3>
-												</a>
-												<h3 class="price">￥${item.price}</h3>
+				<div class="row">
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="all">
+							<c:forEach items="${items}" var="item">
+								<div class="col-sm-2 col-lg-4 col-md-4">
+									<div class="thumbnail ">
+										<c:if test="${fn:length(item.imgs) gt 0 }">
+											<img src="resources/img/items/${item.imgs[0]}" alt=""
+												width="320" height="120">
+										</c:if>
+										<div class="caption">
+											<h4 class="pull-right price">￥${item.price}/斤</h4>
+											<h4>
+												<a href="item?item_id=${item.id}">${item.name}</a>
+											</h4>
+											<h5 class="pull-right stock">库存：${item.stock}斤</h5>
+											<br>
+											<p>${item.description}</p>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
+						<c:forEach items="${categories}" var="category" varStatus="vs">
+							<div role="tabpanel" class="tab-pane" id="${category.id}">
+								<c:forEach items="${category.items}" var="item">
+									<div class="col-sm-2 col-lg-4 col-md-4">
+										<div class="thumbnail">
+											<c:if test="${fn:length(item.imgs) gt 0 }">
+												<img src="resources/img/items/${item.imgs[0]}" alt=""
+													width="320" height="120">
+											</c:if>
+											<div class="caption">
+												<h4 class="pull-right price">￥${item.price}/斤</h4>
+												<h4>
+													<a href="item?item_id=${item.id}">${item.name}</a>
+												</h4>
+												<h5 class="pull-right stock">库存：${item.stock}斤</h5>
+												<br>
+												<p>${item.description}</p>
 											</div>
 										</div>
-									</c:forEach>
-								</div>
-							</c:if>
-						</div>
-					</c:forEach>
+									</div>
+								</c:forEach>
+							</div>
+						</c:forEach>
+					</div>
+
 				</div>
+
 			</div>
+
 		</div>
+
 	</div>
+	<!-- /.container -->
+
 	<%@include file="include/footer.jsp"%>
-	<script type="text/javascript" src="resources/js/jquery.min.js"></script>
-	<script type="text/javascript" src="resources/js/jquery.fly.min.js"></script>
-	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+	<!-- /.container -->
+
+	<!-- jQuery -->
+	<script src="resources/js/jquery.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="resources/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="resources/js/cart.js"></script>
+	<script type="text/javascript">
+		function categoryActive(obj) {
+			$('.categoryBtn').removeClass("active");
+			$(obj).addClass("active	");
+		}
+
+		// 		function categoryAllActive(obj) {
+		// 			$('.categoryBtn').removeClass("active");
+		// 			$(obj).addClass("active	");
+		// 			$('.tab-pane').addClass('active');
+		// 		}
+	</script>
+
+
 </body>
+
 </html>

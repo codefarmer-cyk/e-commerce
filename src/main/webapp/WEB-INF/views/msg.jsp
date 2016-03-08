@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<META http-equiv="refresh" content="3;URL=./">
-<title>Insert title here</title>
+<META http-equiv="refresh" content="3;URL=${url}">
+<title>跳转页面--特色农产品电子商务网站</title>
+<link rel="icon" href="resources/img/favicon.png">
 </head>
-<body>
+<body style="background-color: rgb(249, 249, 249);">
 	<p>${msg}，3秒后跳转！</p>
 </body>
 </html>

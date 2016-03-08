@@ -58,17 +58,24 @@ public class CartController {
 		order.setDate(new Date());
 		order.setStatus("paied");
 		Cookie[] cookies = request.getCookies();
+		double sum = 0;
 		for (Cookie cookie : cookies) {
 			String name = cookie.getName().trim();
 			if (name.startsWith("item_")) {
 				Item item = itemService.get(Integer.valueOf(name.substring("item_".length())));
+				item.setSale(item.getSale() + Integer.valueOf(cookie.getValue().trim()));
+				item.setStock(item.getStock() - Integer.valueOf(cookie.getValue().trim()));
+				itemService.save(item);
 				order.getItems_amount().put(item, Integer.valueOf(cookie.getValue().trim()));
+				sum += item.getPrice() * Integer.valueOf(cookie.getValue().trim());
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
 			}
 		}
+		order.setCost(sum);
 		orderService.save(order);
 		model.addAttribute("msg", "提交订单成功");
+		model.addAttribute("url", "./");
 		return "msg";
 	}
 }

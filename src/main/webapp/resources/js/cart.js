@@ -62,19 +62,19 @@ $(function() {
 	var offset = $("#cart_sum").offset();
 	$(".addcar").click(function(event) {
 		var addcar = $(this);
-		var img = addcar.parent().parent().find('img').attr('src');
+		var img = $('#itemImg').attr('src');
 		var flyer = $('<img class="u-flyer" src="' + img + '">');
 		// alert(offset);
 		flyer.fly({
 			start : {
-				left : event.pageX, // 开始位置（必填）#fly元素会被设置成position:
+				left : event.pageX - 400, // 开始位置（必填）#fly元素会被设置成position:
 				// fixed
-				top : event.pageY
+				top : event.pageY - 800
 			// 开始位置（必填）
 			},
 			end : {
-				left : offset.left + 10, // 结束位置（必填）
-				top : offset.top + 10, // 结束位置（必填）
+				left : offset.left, // 结束位置（必填）
+				top : offset.top, // 结束位置（必填）
 				width : 0, // 结束时宽度
 				height : 0
 			// 结束时高度
@@ -97,5 +97,50 @@ function removeCart(item_id) {
 }
 
 function buy() {
-	window.location.href="./order";
+	window.location.href = "./order";
+}
+
+function getTotalCost() {
+	var sum = 0.0;
+	$('.item').each(function() {
+		var price = $(this).find('.price').first().html();
+		var amount = $(this).find('.amount').first().val();
+		var subSum = (parseFloat(price) * parseFloat(amount)).toFixed(2);
+		$(this).find('.subSum').first().html(subSum);
+		sum += subSum;
+	});
+	$('#sum').html(sum);
+}
+
+function onAmountInput(event, item_id, max) {
+	var amount = event.target.value;
+	var amountReg = /^[1-9]\d*$/;
+	if (!amount || parseInt(amount) == 0) {
+		event.target.value = 1;
+	} else if (amountReg.test(amount)) {
+		amount = amount > max ? max : amount;
+		event.target.value = amount;
+		setCookie('item_' + item_id, amount, 1);
+		getTotalCost();
+	} else {
+		event.target.value = getCookie('item_' + item_id);
+	}
+}
+
+function onAmountPropChanged(event, item_id, max) {
+	if (event.propertyName.toLowerCase() == "value") {
+		var amount = event.target.value;
+		var amountReg = /^[1-9]\d*$/;
+		if (!amount || parseInt(amount) == 0) {
+			event.target.value = 1;
+			setCookie('item_' + item_id, amount, 1);
+			getTotalCost();
+		} else if (amountReg.test(amount)) {
+			amount = amount > max ? max : amount;
+			setCookie('item_' + item_id, amount, 1);
+			getTotalCost();
+		} else {
+			event.target.value = getCookie('item_' + item_id);
+		}
+	}
 }

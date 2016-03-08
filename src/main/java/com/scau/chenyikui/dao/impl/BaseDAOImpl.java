@@ -23,7 +23,7 @@ public abstract class BaseDAOImpl<T> implements BaseDAO<T> {
 
 	@Override
 	public void save(T obj) {
-		sessionFactory.getCurrentSession().save(obj);
+		sessionFactory.getCurrentSession().saveOrUpdate(obj);
 	}
 
 	@Override
