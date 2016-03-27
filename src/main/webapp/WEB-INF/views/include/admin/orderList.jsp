@@ -27,8 +27,8 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<table id="example1"
-								class="table table-bordered table-striped dataTable" role="grid"
-								aria-describedby="example1_info">
+								class="table table-bordered table-striped dataTable table-hover"
+								role="grid" aria-describedby="example1_info">
 								<thead>
 									<tr role="row">
 										<th class="sorting_asc" tabindex="0" aria-controls="example1"
@@ -60,7 +60,23 @@
 											<td class="sorting_1">${order.cost}</td>
 											<td>${order.user.username}</td>
 											<td>${order.date}</td>
-											<td>${order.status}</td>
+											<td><c:choose>
+													<c:when test="${order.status eq 'STATUS_COMMITED'}">
+														<span class="label label-default">待处理</span>
+													</c:when>
+													<c:when test="${order.status eq 'STATUS_SENT'}">
+														<span class="label label-primary">已发货</span>
+													</c:when>
+													<c:when test="${order.status eq 'STATUS_CANCELLED'}">
+														<span class="label label-warning">已取消</span>
+													</c:when>
+													<c:when test="${order.status eq 'STATUS_FINISHED'}">
+														<span class="label label-success">已完成</span>
+													</c:when>
+													<c:when test="${order.status eq 'STATUS_COMMENTED'}">
+														<span class="label label-info">已评价</span>
+													</c:when>
+												</c:choose></td>
 										</tr>
 									</c:forEach>
 								</tbody>

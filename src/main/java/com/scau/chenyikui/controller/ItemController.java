@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.scau.chenyikui.aop.ControllerAdvice;
 import com.scau.chenyikui.model.Item;
 import com.scau.chenyikui.model.Review;
+import com.scau.chenyikui.model.Shop;
 import com.scau.chenyikui.model.User;
 import com.scau.chenyikui.service.ItemService;
 import com.scau.chenyikui.service.ReviewServie;
+import com.scau.chenyikui.service.ShopService;
 import com.scau.chenyikui.service.UserService;
 
 @Controller
@@ -35,40 +37,37 @@ public class ItemController {
 	@Autowired
 	private ReviewServie reviewService;
 
+	@Autowired
+	private ShopService shopService;
+
 	@RequestMapping(value = "/item", method = RequestMethod.GET)
 	public String ItemInfo(int item_id, Model model) {
 		Item item = itemService.get(item_id);
 		User user = userService.get(ControllerAdvice.getPrincipal());
 		model.addAttribute("item", item);
+		model.addAttribute("user", user);
 		List<Review> reviews = reviewService.getReviews(item);
-		int star = 0;
-		int num = 0;
-		for (Review review : reviews) {
-			star += review.getScore();
-			num++;
-		}
-		if (num > 0)
-			star /= num;
 		model.addAttribute("reviews", reviews);
-		model.addAttribute("newReview", new Review());
-		model.addAttribute("star", star);
 		if (user != null) {
 			model.addAttribute("user", user);
-			if (user.getCollections().contains(item)) {
-				model.addAttribute("collected", true);
+			if (user.getItemCollection().contains(item)) {
+				model.addAttribute("itemCollected", true);
+			}
+			if (user.getShopCollection().contains(item.getShop())) {
+				model.addAttribute("shopCollected", true);
 			}
 		}
 		return "item";
 	}
 
-	@RequestMapping(value = "/toggleCollection", method = RequestMethod.POST)
-	public void toggleCollection(int item_id, HttpServletResponse response) {
+	@RequestMapping(value = "/toggleItemCollection", method = RequestMethod.POST)
+	public void toggleItemCollection(int item_id, HttpServletResponse response) {
 		Item item = itemService.get(item_id);
 		User user = userService.get(ControllerAdvice.getPrincipal());
-		if (user.getCollections().contains(item)) {
-			user.getCollections().remove(item);
+		if (user.getItemCollection().contains(item)) {
+			user.getItemCollection().remove(item);
 		} else {
-			user.getCollections().add(item);
+			user.getItemCollection().add(item);
 		}
 		userService.save(user);
 		String result = "{\"name\":\"" + user.getUsername() + "\"}";
@@ -82,22 +81,25 @@ public class ItemController {
 		}
 	}
 
-	@RequestMapping(value = "/addReview", method = RequestMethod.POST)
-	public String addReview(@ModelAttribute("newReview") Review newReview) {
-		newReview.setDate(new Date());
-		int star = 0;
-		int num = 0;
-		Item item = newReview.getItem();
-		List<Review> reviews = reviewService.getReviews(item);
-		for (Review review : reviews) {
-			star += review.getScore();
-			num++;
+	@RequestMapping(value = "/toggleShopCollection", method = RequestMethod.POST)
+	public void toggleShopCollection(int shop_id, HttpServletResponse response) {
+		Shop shop = shopService.get(shop_id);
+		User user = userService.get(ControllerAdvice.getPrincipal());
+		if (user.getShopCollection().contains(shop)) {
+			user.getShopCollection().remove(shop);
+		} else {
+			user.getShopCollection().add(shop);
 		}
-		if (num > 0)
-			star /= num;
-		item.setScore(star);
-		itemService.save(item);
-		reviewService.save(newReview);
-		return "redirect:/item?item_id=" + newReview.getItem().getId();
+		userService.save(user);
+		String result = "{\"name\":\"" + user.getUsername() + "\"}";
+		PrintWriter out = null;
+		response.setContentType("application/json");
+		try {
+			out = response.getWriter();
+			out.write(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+
 }

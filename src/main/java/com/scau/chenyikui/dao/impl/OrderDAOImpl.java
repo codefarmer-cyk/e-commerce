@@ -20,8 +20,19 @@ public class OrderDAOImpl extends BaseDAOImpl<Order> implements OrderDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Order> getOrders(User user) {
-		return sessionFactory.getCurrentSession().createQuery("from Order order where order.user.username = :username")
-				.setParameter("username", user.getUsername()).list();
+		return sessionFactory.getCurrentSession().createQuery("from Order order where order.user=:user")
+				.setParameter("user", user).list();
+	}
+
+	@Deprecated
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Order> getOrdersByBusiness(User business) {
+		System.out.println(business);
+		return sessionFactory.getCurrentSession()
+				.createSQLQuery(
+						"select o.* from orders o join orders_items oi join items i on o.id=oi.order_id and i.id=oi.item_id where i.shop_id=:shop_id")
+				.addEntity(Order.class).setParameter("shop_id", business.getShop().getId()).list();
 	}
 
 }

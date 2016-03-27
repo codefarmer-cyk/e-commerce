@@ -11,6 +11,7 @@ import com.scau.chenyikui.dao.ItemDAO;
 import com.scau.chenyikui.dao.impl.BaseDAOImpl;
 import com.scau.chenyikui.model.Category;
 import com.scau.chenyikui.model.Item;
+import com.scau.chenyikui.model.User;
 import com.scau.chenyikui.service.ItemService;
 
 @Service
@@ -64,6 +65,12 @@ public class ItemServiceImpl extends BaseServiceImpl<Item> implements ItemServic
 	@Override
 	public List<Item> getItems(String search) {
 		return itemDAO.getItems(search);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Item> getItems(User user) {
+		return itemDAO.getItems(user);
 	}
 
 }

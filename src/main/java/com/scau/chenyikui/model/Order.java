@@ -1,9 +1,14 @@
 package com.scau.chenyikui.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -15,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,11 +33,8 @@ public class Order {
 	@ManyToOne
 	private User user;
 
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "orders_items", joinColumns = @JoinColumn(name = "order_id") )
-	@MapKeyJoinColumn(name = "item_id")
-	@Column(name = "amount")
-	private Map<Item, Integer> items_amount = new HashMap<Item, Integer>();
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<SubOrder> subOrders = new ArrayList<SubOrder>();
 
 	private Date date;
 
@@ -79,12 +82,12 @@ public class Order {
 		this.cost = cost;
 	}
 
-	public Map<Item, Integer> getItems_amount() {
-		return items_amount;
+	public List<SubOrder> getSubOrders() {
+		return subOrders;
 	}
 
-	public void setItems_amount(Map<Item, Integer> items_amount) {
-		this.items_amount = items_amount;
+	public void setSubOrders(List<SubOrder> subOrders) {
+		this.subOrders = subOrders;
 	}
 
 }

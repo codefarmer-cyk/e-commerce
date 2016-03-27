@@ -2,20 +2,26 @@ package com.scau.chenyikui.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.scau.chenyikui.aop.ControllerAdvice;
@@ -98,5 +104,37 @@ public class AdminController {
 	public String newCategory(Model model, @ModelAttribute(value = "newCategory") Category category) {
 		categoryService.save(category);
 		return "redirect:/admin?page=categoryList";
+	}
+
+	@RequestMapping(value = "/admin/toggleUserEnabled", method = RequestMethod.POST)
+	public void toggleUserEnabled(String username, Boolean enabled, HttpServletResponse response) {
+		User user = userService.get(username);
+		user.setEnabled(enabled);
+		userService.save(user);
+		String result = "{\"result\":\"success\"}";
+		PrintWriter out = null;
+		response.setContentType("application/json");
+		try {
+			out = response.getWriter();
+			out.write(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/admin/toggleItemEnabled", method = RequestMethod.POST)
+	public void toggleItemEnabled(Integer item_id, Boolean enabled, HttpServletResponse response) {
+		Item item = itemService.get(item_id);
+		item.setEnabled(enabled);
+		itemService.save(item);
+		String result = "{\"result\":\"success\"}";
+		PrintWriter out = null;
+		response.setContentType("application/json");
+		try {
+			out = response.getWriter();
+			out.write(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -33,9 +33,8 @@
 							</div>
 							<div class="modal-footer">
 								<button type="reset" class="btn btn-default"
-									data-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-primary">Save
-									changes</button>
+									data-dismiss="modal">取消</button>
+								<button type="submit" class="btn btn-primary">保存</button>
 							</div>
 						</fieldset>
 					</form:form>

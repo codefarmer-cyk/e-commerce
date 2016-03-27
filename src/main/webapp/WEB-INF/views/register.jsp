@@ -39,6 +39,17 @@ body {
 								<legend class="">注册</legend>
 							</div>
 							<div class="control-group">
+								<label class="control-label" for="username">类型</label>
+								<div class="controls">
+									<form:select path="authorities" multiple="false"
+										cssClass="form-control">
+										<form:option value="ROLE_USER">买家</form:option>
+										<form:option value="ROLE_BUSINESS">卖家</form:option>
+									</form:select>
+								</div>
+							</div>
+							<br>
+							<div class="control-group">
 								<!-- Username -->
 								<label class="control-label" for="username">用户名</label>
 								<div class="controls">
@@ -51,12 +62,12 @@ body {
 								<div id="username_input_warn" class="alert alert-warning"
 									hidden="hidden" role="alert">用户名不符合规则！</div>
 							</div>
-
+							<br>
 							<div class="control-group">
 								<!-- E-mail -->
 								<label class="control-label" for="email">电子邮箱</label>
 								<div class="controls">
-									<form:input type="text" id="email" path="email" name="email"
+									<form:input type="email" id="email" path="email" name="email"
 										placeholder="" class="form-control"
 										oninput="onEmailInput (event)"
 										onpropertychange="onEmailPropChanged (event)" />
@@ -65,12 +76,12 @@ body {
 								<div id="email_input_warn" class="alert alert-warning"
 									role="alert" hidden="hidden">电子邮箱格式不正确！</div>
 							</div>
-
+							<br>
 							<div class="control-group">
 								<!-- Phone-->
 								<label class="control-label" for="phone">手机号码</label>
 								<div class="controls">
-									<form:input type="text" id="phone" path="phone" name="phone"
+									<form:input type="tel" id="phone" path="phone" name="phone"
 										placeholder="" class="form-control"
 										oninput="onPhoneInput (event)"
 										onpropertychange="onPhonePropChanged (event)" />
@@ -79,7 +90,7 @@ body {
 								<div id="phone_input_warn" class="alert alert-warning"
 									role="alert" hidden="hidden">手机号码格式不正确！</div>
 							</div>
-
+							<br>
 							<div class="control-group">
 								<!-- Password-->
 								<label class="control-label" for="password">密码</label>
@@ -93,7 +104,7 @@ body {
 								<div id="password_input_warn" class="alert alert-warning"
 									role="alert" hidden>密码不符合规则！</div>
 							</div>
-
+							<br>
 							<div class="control-group">
 								<!-- Password -->
 								<label class="control-label" for="password_confirm">密码
@@ -110,7 +121,7 @@ body {
 							</div>
 
 							<form:hidden path="enabled" value="1" />
-
+							<hr>
 							<div class="control-group">
 								<!-- Button -->
 								<div class="controls">

@@ -9,4 +9,6 @@ public interface OrderDAO extends BaseDAO<Order> {
 	List<Order> getOrders();
 
 	List<Order> getOrders(User user);
+	
+	List<Order> getOrdersByBusiness(User bsiness);
 }

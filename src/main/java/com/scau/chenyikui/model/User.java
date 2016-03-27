@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -16,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -50,9 +52,9 @@ public class User {
 	private Set<Order> orders = new HashSet<Order>();
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "collections", joinColumns = @JoinColumn(name = "username") )
+	@CollectionTable(name = "itemCollection", joinColumns = @JoinColumn(name = "username") )
 	@Column(name = "item")
-	public Set<Item> collections = new HashSet<Item>();
+	public Set<Item> itemCollection = new HashSet<Item>();
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "authorities", joinColumns = @JoinColumn(name = "username") )
@@ -63,6 +65,14 @@ public class User {
 	@CollectionTable(name = "addresses", joinColumns = @JoinColumn(name = "username") )
 	@Column(name = "address")
 	private Set<String> addresses = new HashSet<String>();
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	public Shop shop;
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "shopCollection", joinColumns = @JoinColumn(name = "username") )
+	@Column(name = "shop")
+	public Set<Shop> shopCollection = new HashSet<Shop>();
 
 	public String getPassword() {
 		return password;
@@ -128,12 +138,20 @@ public class User {
 		this.items_amount = items_amount;
 	}
 
-	public Set<Item> getCollections() {
-		return collections;
+	public Set<Item> getItemCollection() {
+		return itemCollection;
 	}
 
-	public void setCollections(Set<Item> collections) {
-		this.collections = collections;
+	public void setItemCollection(Set<Item> itemCollection) {
+		this.itemCollection = itemCollection;
+	}
+
+	public Set<Shop> getShopCollection() {
+		return shopCollection;
+	}
+
+	public void setShopCollection(Set<Shop> shopCollection) {
+		this.shopCollection = shopCollection;
 	}
 
 	public Set<String> getAddresses() {
@@ -174,6 +192,14 @@ public class User {
 
 	public void setAvatarFile(MultipartFile avatarFile) {
 		this.avatarFile = avatarFile;
+	}
+
+	public Shop getShop() {
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 }

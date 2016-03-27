@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page session="false"%>
@@ -8,67 +9,6 @@
 <div class="row">
 	<div class="col-xs-12">
 
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">添加新商品</h4>
-					</div>
-					<form:form commandName="newItem" action="./admin/newItem"
-						method="post" enctype="multipart/form-data">
-						<fieldset>
-							<form:hidden path="id" />
-							<div class="modal-body">
-								<div class="form-group">
-									<label for="itemCategorySelect">类型</label>
-									<form:select class="form-control" id="itemCategorySelect"
-										items="${categories}" path="category.id" itemLabel="name"
-										itemValue="id">
-									</form:select>
-								</div>
-
-								<div class="form-group">
-									<label for="itemNameInput">商品名</label>
-									<form:input type="text" class="form-control" id="itemNameInput"
-										placeholder="" path="name" />
-								</div>
-								<div class="form-group">
-									<label for="itemPriceInput">价格</label>
-									<form:input type="text" class="form-control"
-										id="itemPriceInput" placeholder="" path="price" />
-								</div>
-								<div class="form-group">
-									<label for="itemStockInput">库存</label>
-									<form:input type="text" class="form-control"
-										id="itemStockInput" placeholder="0" path="stock" />
-								</div>
-								<div class="form-group">
-									<label for="itemStockInput">描述</label>
-									<form:textarea class="form-control" id="itemStockInput"
-										path="description" />
-								</div>
-								<div class="form-group">
-									<label for="itemImgInput">上传图片</label> <input type="file"
-										id="itemImgInput" name="images" multiple="multiple">
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="reset" class="btn btn-default"
-									data-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary">保存</button>
-							</div>
-						</fieldset>
-					</form:form>
-				</div>
-			</div>
-		</div>
-		<!-- /.modal -->
 		<!-- box -->
 		<div class="box">
 			<div class="box-header">
@@ -90,7 +30,9 @@
 				<table class="table table-hover">
 					<tbody>
 						<tr>
+							<th>ID</th>
 							<th>商品名</th>
+							<th>图片</th>
 							<th>类别</th>
 							<th>价格</th>
 							<th>添加时间</th>
@@ -100,11 +42,22 @@
 						</tr>
 						<c:forEach items="${itemList}" var="item">
 							<tr>
+								<td>${item.id}</td>
 								<td>${item.name}</td>
+								<td><img alt="" src="resources/img/items/${item.imgs[0]}"
+									width="40px"></td>
 								<td>${item.category.name}</td>
-								<td>${item.price}</td>
+								<td><fmt:formatNumber type="number" value="${item.price} "
+										minFractionDigits="2" maxFractionDigits="2" /></td>
 								<td>${item.date}</td>
-								<td></td>
+								<td><div class="switch">
+										<input type="checkbox" name="enabled" data-on-text="正常"
+											data-off-text="下架" data-on-color="success"
+											data-off-color="danger" data-size="mini" class="userEnabled"
+											data-label-width="40" data-handle-width="40"
+											onchange="toggleItemEnabled(this,'${item.id}')"
+											<c:if test="${item.enabled}">checked</c:if> />
+									</div></td>
 								<td>${item.stock}</td>
 								<td>${item.description}</td>
 							</tr>
@@ -113,13 +66,6 @@
 				</table>
 				<!-- Button trigger modal -->
 				<hr>
-				<div style="text-align: center">
-					<button type="button" class="btn btn-success btn-md"
-						data-toggle="modal" data-target="#myModal">
-						<span class="glyphicon glyphicon-plus"></span>
-					</button>
-				</div>
-				<br>
 			</div>
 			<!-- /.box-body -->
 		</div>

@@ -35,6 +35,7 @@ charset=UTF-8">
     -->
 <link rel="stylesheet" href="resources/css/skins/skin-blue.min.css">
 
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -49,7 +50,7 @@ charset=UTF-8">
 		<header class="main-header">
 
 			<!-- Logo -->
-			<a href="./" class="logo" style="background: #222d32;"> <!-- mini logo for sidebar mini 50x50 pixels -->
+			<a href="#" class="logo" style="background: #222d32;"> <!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><b>管</b></span> <!-- logo for regular state and mobile devices -->
 				<span class="logo-lg"><b>管理员</b>界面</span>
 			</a>
@@ -153,7 +154,8 @@ charset=UTF-8">
 										<a href="#" class="btn btn-default btn-flat">Profile</a>
 									</div>
 									<div class="pull-right">
-										<a href="#" class="btn btn-default btn-flat">Sign out</a>
+										<a href="./logout" class="btn btn-default btn-flat">Sign
+											out</a>
 									</div>
 								</li>
 							</ul>
@@ -233,7 +235,7 @@ charset=UTF-8">
 					<li class="treeview"><a href="#"><i class="fa fa-link"></i>
 							<span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
 						<ul class="treeview-menu">
-							<li><a href="#">Link in level 2</a></li>
+							<li><a href="./admin?page=saleInfo">Link in level 2</a></li>
 							<li><a href="#">Link in level 2</a></li>
 						</ul></li>
 				</ul>
@@ -272,6 +274,9 @@ charset=UTF-8">
 					<c:when test="${page eq 'categoryList' }">
 						<%@include file="include/admin/categoryList.jsp"%>
 					</c:when>
+					<c:when test="${page eq 'saleInfo' }">
+						<%@include file="include/business/saleInfo.jsp"%>
+					</c:when>
 				</c:choose>
 
 			</section>
@@ -282,9 +287,8 @@ charset=UTF-8">
 		<!-- Main Footer -->
 		<footer class="main-footer">
 			<!-- To the right -->
-			<div class="pull-right hidden-xs">Anything you want</div>
 			<!-- Default to the left -->
-			<strong>Copyright &copy; 2015 <a href="#">Company</a>.
+			<strong>Copyright &copy; 2016 <a href="#">陈逸逵</a>.
 			</strong> All rights reserved.
 		</footer>
 
@@ -368,11 +372,50 @@ charset=UTF-8">
 	<!-- Bootstrap Switch -->
 	<script type="text/javascript"
 		src="resources/js/bootstrap-switch.min.js"></script>
+	<script src="resources/js/app.min.js"></script>
+	<script src="resources/js/pages/Chart.min.js"></script>
+	<script type="text/javascript" src="resources/js/register.js"></script>
+	<script src="resources/js/pages/fastclick.min.js"></script>
+	<script type="text/javascript" src="resources/js/chart.js"></script>
 	<!-- AdminLTE App -->
 	<script src="resources/js/app.min.js"></script>
 	<script type="text/javascript">
 		$("[name='enabled']").bootstrapSwitch();
-		$("[name='fuck']").bootstrapSwitch();
+		function toggleUserEnabled(obj, username) {
+			var enabled = $(obj);
+			$.ajax({
+				url : "./admin/toggleUserEnabled",
+				type : "json",
+				dataType : "json",
+				data : {
+					"username" : username,
+					"enabled" : enabled.is(":checked"),
+					"${_csrf.parameterName}" : "${_csrf.token}",
+				},
+				method : "post",
+				success : function(data) {
+					console.log(data.result);
+				}
+			});
+		}
+
+		function toggleItemEnabled(obj, item_id) {
+			var enabled = $(obj);
+			$.ajax({
+				url : "./admin/toggleItemEnabled",
+				type : "json",
+				dataType : "json",
+				data : {
+					"item_id" : item_id,
+					"enabled" : enabled.is(":checked"),
+					"${_csrf.parameterName}" : "${_csrf.token}",
+				},
+				method : "post",
+				success : function(data) {
+					console.log(data.result);
+				}
+			});
+		}
 	</script>
 
 </body>

@@ -27,6 +27,7 @@
 					<tbody>
 						<tr>
 							<th>用户名</th>
+							<th>头像</th>
 							<th>邮箱</th>
 							<th>手机号</th>
 							<th>注册时间</th>
@@ -36,14 +37,17 @@
 						<c:forEach items="${userList}" var="user">
 							<tr>
 								<td>${user.username}</td>
+								<td><img alt="" src="resources/img/avatar/${user.avatar}"
+									class="img-circle" width="30px"></td>
 								<td>${user.email}</td>
 								<td>${user.phone}</td>
 								<td>${user.date}</td>
 								<td><div class="switch">
-										<input type="checkbox" name="enabled" data-on-text="Enable"
-											data-off-text="Disable" data-on-color="success"
-											data-off-color="danger" data-size="mini"
+										<input type="checkbox" name="enabled" data-on-text="正常"
+											data-off-text="禁用" data-on-color="success"
+											data-off-color="danger" data-size="mini" class="userEnabled"
 											data-label-width="40" data-handle-width="40"
+											onchange="toggleUserEnabled(this,'${user.username}')"
 											<c:if test="${user.enabled}">checked</c:if> />
 									</div></td>
 								<td>${user.authorities}</td>

@@ -24,8 +24,10 @@
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
 					<c:when test="${user eq null}">
-						<li><a href="./login">登录</a></li>
-						<li><a href="./register">注册</a></li>
+						<li><a href="./login" title="登录"><span
+								class="glyphicon glyphicon-log-in"></span></a></li>
+						<li><a href="./register" title="注册"><span
+								class="glyphicon glyphicon-edit"></span></a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -35,16 +37,17 @@
 								width="30px" height="30px" alt="User Image">
 								${user.username}<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="./user"><span
-										class="glyphicon glyphicon-user" aria-hidden="true"></span>个人中心</a></li>
+								<li><a href="./user" title=""><span
+										class="glyphicon glyphicon-user" aria-hidden="true">
+											个人中心</span></a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="./logout"><span
-										class="glyphicon glyphicon-off" aria-hidden="true"></span>
-										退出登录</a></li>
+								<li><a href="./logout" title=""><span
+										class="glyphicon glyphicon-log-out" aria-hidden="true">
+											退出登录</span> </a></li>
 							</ul></li>
 					</c:otherwise>
 				</c:choose>
-				<li><a href="./cart"><span
+				<li><a href="./cart" title="购物车"><span
 						class="glyphicon glyphicon-shopping-cart" aria-hidden="true"><span
 							class="badge" id="cart_sum">0</span></span></a></li>
 			</ul>

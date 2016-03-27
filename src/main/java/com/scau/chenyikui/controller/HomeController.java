@@ -29,6 +29,7 @@ import com.scau.chenyikui.aop.ControllerAdvice;
 import com.scau.chenyikui.model.Category;
 import com.scau.chenyikui.model.Item;
 import com.scau.chenyikui.model.Order;
+import com.scau.chenyikui.model.Shop;
 import com.scau.chenyikui.model.User;
 import com.scau.chenyikui.service.CategoryService;
 import com.scau.chenyikui.service.ItemService;
@@ -54,6 +55,19 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	@RequestMapping(value = "/default", method = RequestMethod.GET)
+	public String defaultURL(HttpServletRequest request) {
+		String targetUrl = null;
+		if (request.isUserInRole("ROLE_ADMIN")) {
+			targetUrl = "redirect:/admin";
+		} else if (request.isUserInRole("ROLE_BUSINESS")) {
+			targetUrl = "redirect:/business";
+		} else {
+			targetUrl = "redirect:/";
+		}
+		return targetUrl;
+	}
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, String order, Boolean asc, String search) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -124,8 +138,10 @@ public class HomeController {
 
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public String registerDo(Model model, User user) {
-		user.getAuthorities().add("ROLE_USER");
 		String salt = RandomStringUtils.randomAlphanumeric(5);
+		if (user.getAuthorities().contains("ROLE_BUSINESS")) {
+			user.setShop(new Shop());
+		}
 		user.setSalt(salt);
 		Md5PasswordEncoder md5 = new Md5PasswordEncoder();
 		String md5Password = md5.encodePassword(user.getPassword(), "");

@@ -35,4 +35,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order> implements OrderSer
 		return orderDAO.getOrders(user);
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public List<Order> getOrdersByBusiness(User bsiness) {
+		return orderDAO.getOrdersByBusiness(bsiness);
+	}
+
 }

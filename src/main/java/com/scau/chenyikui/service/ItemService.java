@@ -4,11 +4,14 @@ import java.util.List;
 
 import com.scau.chenyikui.model.Category;
 import com.scau.chenyikui.model.Item;
+import com.scau.chenyikui.model.User;
 
 public interface ItemService extends BaseService<Item> {
 	List<Item> getItems();
 
 	List<Item> getItems(String search);
+
+	List<Item> getItems(User user);
 
 	List<Item> getItems(boolean asc, String order);
 
@@ -19,4 +22,5 @@ public interface ItemService extends BaseService<Item> {
 	List<Item> getItemsOrderByPrice(boolean desc, Category category);
 
 	List<Item> getItemsOrderBySale(boolean desc, Category category);
+
 }

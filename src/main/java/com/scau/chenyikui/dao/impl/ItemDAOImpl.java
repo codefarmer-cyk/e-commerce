@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.scau.chenyikui.dao.ItemDAO;
 import com.scau.chenyikui.model.Category;
 import com.scau.chenyikui.model.Item;
+import com.scau.chenyikui.model.User;
 
 @Repository
 public class ItemDAOImpl extends BaseDAOImpl<Item> implements ItemDAO {
@@ -99,6 +100,13 @@ public class ItemDAOImpl extends BaseDAOImpl<Item> implements ItemDAO {
 	public List<Item> getItems(String search) {
 		return sessionFactory.getCurrentSession().createQuery("from Item item where item.name like '%" + search + "%'")
 				.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Item> getItems(User user) {
+		return sessionFactory.getCurrentSession().createQuery("from Item item where item.shop=:shop")
+				.setParameter("shop", user.getShop()).list();
 	}
 
 }

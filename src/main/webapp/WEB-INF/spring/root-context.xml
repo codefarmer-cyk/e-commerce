@@ -20,7 +20,8 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/mysite" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/mysite?characterEncoding=utf-8" />
 		<property name="username" value="root" />
 		<property name="password" value="admin" />
 	</bean>
@@ -67,16 +68,20 @@
 	<security:http auto-config="true" use-expressions="true">
 		<security:form-login login-page="/login"
 			login-processing-url="/login.do" username-parameter="username"
-			password-parameter="password" />
+			password-parameter="password" default-target-url="/default" />
 		<security:remember-me key="fuck"
 			token-validity-seconds="864000" />
 		<security:logout logout-url="/logout" />
 		<security:intercept-url pattern="/login"
-			access="hasAnyRole('ROLE_ANONYMOUS,ROLE_USER')" />
+			access="hasAnyRole('ROLE_ANONYMOUS')" />
 		<security:intercept-url pattern="/user"
 			access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/item"
+			access="hasAnyRole('ROLE_ANONYMOUS,ROLE_USER')" />
 		<security:intercept-url pattern="/admin"
 			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/business"
+			access="hasRole('ROLE_BUSINESS')" />
 		<security:intercept-url pattern="/"
 			access="hasAnyRole('ROLE_ANONYMOUS,ROLE_USER')" />
 		<security:form-login authentication-failure-url="/Access_Denied" />

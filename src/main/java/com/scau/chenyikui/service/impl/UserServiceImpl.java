@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.scau.chenyikui.dao.UserDAO;
 import com.scau.chenyikui.dao.impl.BaseDAOImpl;
 import com.scau.chenyikui.model.Item;
+import com.scau.chenyikui.model.Shop;
 import com.scau.chenyikui.model.User;
 import com.scau.chenyikui.service.UserService;
 
@@ -31,8 +32,14 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Item> getCollecions(User user) {
-		return userDAO.getCollecions(user);
+	public List<Item> getItemCollecion(User user) {
+		return userDAO.getItemCollecion(user);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Shop> getShopCollecion(User user) {
+		return userDAO.getShopCollecion(user);
 	}
 
 	@Transactional(readOnly = true)

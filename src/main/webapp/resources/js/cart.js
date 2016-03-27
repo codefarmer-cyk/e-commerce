@@ -4,6 +4,7 @@
 
 (function() {
 	countSum();
+	getTotalCost();
 })();
 
 function setCookie(c_name, value, expiredays) {
@@ -69,7 +70,7 @@ $(function() {
 			start : {
 				left : event.pageX - 400, // 开始位置（必填）#fly元素会被设置成position:
 				// fixed
-				top : event.pageY - 800
+				top : event.pageY - 300
 			// 开始位置（必填）
 			},
 			end : {
@@ -96,20 +97,16 @@ function removeCart(item_id) {
 	window.location.reload();
 }
 
-function buy() {
-	window.location.href = "./order";
-}
-
 function getTotalCost() {
-	var sum = 0.0;
+	var sum = new Number();
 	$('.item').each(function() {
 		var price = $(this).find('.price').first().html();
 		var amount = $(this).find('.amount').first().val();
-		var subSum = (parseFloat(price) * parseFloat(amount)).toFixed(2);
-		$(this).find('.subSum').first().html(subSum);
+		var subSum = (parseFloat(price) * parseFloat(amount));
+		$(this).find('.subSum').first().html(subSum.toFixed(2));
 		sum += subSum;
 	});
-	$('#sum').html(sum);
+	$('#sum').html(sum.toFixed(2));
 }
 
 function onAmountInput(event, item_id, max) {

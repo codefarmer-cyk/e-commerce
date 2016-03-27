@@ -9,4 +9,6 @@ public interface OrderService extends BaseService<Order> {
 	List<Order> getOrders();
 
 	List<Order> getOrders(User user);
+
+	List<Order> getOrdersByBusiness(User business);
 }

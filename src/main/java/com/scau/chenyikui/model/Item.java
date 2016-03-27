@@ -35,10 +35,15 @@ public class Item {
 
 	private double price;
 
+	private boolean enabled;
+
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "imgs", joinColumns = @JoinColumn(name = "item_id") )
 	@Column(name = "imgs")
 	private List<String> imgs = new ArrayList<String>();
+
+	@ManyToOne
+	private Shop shop;
 
 	@ManyToOne
 	private Category category;
@@ -78,6 +83,14 @@ public class Item {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public List<String> getImgs() {
@@ -142,6 +155,14 @@ public class Item {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public Shop getShop() {
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 	@Override
