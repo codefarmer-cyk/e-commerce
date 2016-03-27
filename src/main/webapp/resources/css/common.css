@@ -1,0 +1,91 @@
+@CHARSET "UTF-8";
+
+body {
+	padding-top: 70px;
+	background-color: rgb(249, 249, 249);
+}
+
+div .address {
+	border: solid thin gray;
+	padding: 10px;
+	background-color: #f8f8ff;
+	border-radius: 10px;
+	margin-bottom: 10%;
+}
+
+caption {
+	height: 130px;
+	overflow: hidden;
+}
+
+.caption h4 {
+	white-space: nowrap;
+}
+
+.thumbnail img {
+	width: 100%;
+}
+
+.thumbnail {
+	padding: 0;
+}
+
+.thumbnail .caption-full {
+	padding: 9px;
+	color: #333;
+}
+
+.animated {
+	-webkit-transition: height 0.2s;
+	-moz-transition: height 0.2s;
+	transition: height 0.2s;
+}
+
+.stars {
+	margin: 20px 0;
+	font-size: 24px;
+	color: #d17581;
+}
+
+.ratings {
+	padding-right: 10px;
+	padding-left: 10px;
+	color: #d17581;
+}
+
+footer {
+	margin: 50px 0;
+}
+
+.u-flyer {
+	display: block;
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	position: fixed;
+	z-index: 9999;
+}
+
+.price {
+	color: #e4393c;
+}
+
+.stock {
+	color: green;
+}
+
+.slide-image {
+	width: 100%;
+}
+
+.carousel-holder {
+	margin-bottom: 30px;
+}
+
+.carousel-control, .item {
+	border-radius: 4px;
+}
+
+.scale img:hover {
+	-webkit-transform: scale(3);
+}
